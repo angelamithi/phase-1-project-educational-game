@@ -1,4 +1,6 @@
 const answers = [];
+let score = 0;
+let questionsCount = 0;
 
 const selectRandomCountry = function () {
     const flagContainer = document.querySelector("#image-container");
@@ -68,7 +70,6 @@ const selectRandomCountry = function () {
             submitButton.style.marginTop = "20px";
             submitButton.style.borderRadius = "5px";
             submitButton.style.backgroundColor = "orange";
-          
 
             formContainer.appendChild(flagImage);
             formContainer.appendChild(answer1);
@@ -78,24 +79,46 @@ const selectRandomCountry = function () {
             formContainer.appendChild(answer3);
             formContainer.appendChild(label3);
             formContainer.appendChild(submitButton);
+            checkAnswer(formContainer, correctAnswer, answerFeedback);
 
-            formContainer.addEventListener("submit", function (e) {
-                e.preventDefault();
-
-                const selectedAnswer = document.querySelector('input[name="answers"]:checked').value;
-
-                if (selectedAnswer === correctAnswer) {
-                    answerFeedback.textContent = "Correct!";
-                } else {
-                    answerFeedback.textContent = `Incorrect! The correct answer is: ${correctAnswer}`;
-                }
-            });
         })
 
         .catch(error => {
             console.error("Error fetching data: ", error);
         });
 };
+
+function checkAnswer(formContainer, correctAnswer, answerFeedback) {
+    formContainer.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const selectedAnswer = document.querySelector('input[name="answers"]:checked');
+        if (selectedAnswer) {
+            if (selectedAnswer.value === correctAnswer) {
+                answerFeedback.textContent = "Correct!";
+                score++;
+            } else {
+                answerFeedback.textContent = `Incorrect! The correct answer is: ${correctAnswer}`;
+            }
+            setTimeout(() => {
+                formContainer.innerHTML = "";
+                answerFeedback.innerHTML = "";
+                answers.length = 0;
+                questionsCount++;
+                if (questionsCount < 10) {
+                   
+                    formContainer.innerHTML = "";
+                    answerFeedback.innerHTML = "";
+                    selectRandomCountry();
+                } else {
+                   alert(`Quiz ended! Your score is ${score}`);
+                }
+            }, 3000);
+        } else {
+            answerFeedback.textContent = "Please select an answer!";
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     selectRandomCountry();
