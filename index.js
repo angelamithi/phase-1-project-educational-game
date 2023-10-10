@@ -89,7 +89,7 @@ const selectRandomCountry = function () {
 };
 
 function checkAnswer(formContainer, correctAnswer, answerFeedback) {
-    formContainer.addEventListener("submit", function (e) {
+    formContainer.addEventListener("submit", function submitHandler(e) {
         e.preventDefault();
 
         const selectedAnswer = document.querySelector('input[name="answers"]:checked');
@@ -101,17 +101,21 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
                 answerFeedback.textContent = `Incorrect! The correct answer is: ${correctAnswer}`;
             }
             setTimeout(() => {
-                formContainer.innerHTML = "";
-                answerFeedback.innerHTML = "";
                 answers.length = 0;
                 questionsCount++;
                 if (questionsCount < 10) {
-                   
+                    formContainer.removeEventListener("submit",submitHandler);
                     formContainer.innerHTML = "";
                     answerFeedback.innerHTML = "";
                     selectRandomCountry();
                 } else {
-                   alert(`Quiz ended! Your score is ${score}`);
+                    const header2=document.querySelector("h2");
+                    header2.innerHTML="";
+                    formContainer.innerHTML = "";
+                    answerFeedback.innerHTML = "";
+                    answerFeedback.innerHTML="Thanks for participating in the Quiz!!"
+                    alert(`Quiz ended! Your score is ${score}`);
+                                         
                 }
             }, 3000);
         } else {
