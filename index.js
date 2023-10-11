@@ -115,31 +115,18 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
                     answerFeedback.innerHTML = "";
                     answerFeedback.innerHTML="Thanks for participating in the Quiz!!"
                     alert(`Quiz ended! Your score is ${score}`);
-                    restartQuiz();
-
+                    const restartButton=document.createElement("button");
+                    restartButton.textContent="Restart Quiz";
+                    formContainer.appendChild(restartButton);
                                          
                 }
             }, 3000);
         } else {
             answerFeedback.textContent = "Please select an answer!";
-
         }
     });
 }
 
-const restartQuiz=function(){
-    const restartQuizButton=document.createElement("button");
-    restartQuizButton.textContent="Restart Quiz";
-    restartQuiz.addEventListener("click",()=>{
-        score=0;
-        questionsCount=0;
-        selectRandomCountry();
-   
-    })
-    const formContainer = document.querySelector("form#formquiz");
-    formContainer.appendChild(restartQuizButton);
-
-}
 document.addEventListener("DOMContentLoaded", () => {
     selectRandomCountry();
 });
