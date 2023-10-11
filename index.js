@@ -80,6 +80,7 @@ const selectRandomCountry = function () {
             formContainer.appendChild(label3);
             formContainer.appendChild(submitButton);
             checkAnswer(formContainer, correctAnswer, answerFeedback);
+            answerFeedback.innerHTML = "";
 
         })
 
@@ -103,6 +104,7 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
             setTimeout(() => {
                 answers.length = 0;
                 questionsCount++;
+                formContainer.removeEventListener("submit",submitHandler);
                 if (questionsCount < 10) {
                     formContainer.removeEventListener("submit",submitHandler);
                     formContainer.innerHTML = "";
@@ -119,10 +121,12 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
                     restartButton.textContent="Restart Quiz";
                     restartButton.style.backgroundColor="orange";
                     restartButton.style.borderRadius="10px";
-                    restartButton.addEventListener("click",()=>{
+                    restartButton.addEventListener("click",function clickEvent(){
                     score=0;
                     questionsCount=0;
                     selectRandomCountry();
+                    restartButton.remove();
+                    restartButton.removeEventListener("click",clickEvent)
                     })
                     formContainer.appendChild(restartButton);
                                          
