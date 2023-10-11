@@ -117,6 +117,13 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
                     alert(`Quiz ended! Your score is ${score}`);
                     const restartButton=document.createElement("button");
                     restartButton.textContent="Restart Quiz";
+                    restartButton.style.backgroundColor="orange";
+                    restartButton.style.borderRadius="10px";
+                    restartButton.addEventListener("click",()=>{
+                    score=0;
+                    questionsCount=0;
+                    selectRandomCountry();
+                    })
                     formContainer.appendChild(restartButton);
                                          
                 }
