@@ -96,8 +96,10 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
         const selectedAnswer = document.querySelector('input[name="answers"]:checked');
         if (selectedAnswer) {
             if (selectedAnswer.value === correctAnswer) {
-                answerFeedback.textContent = "Correct!";
                 score++;
+                answerFeedback.textContent =`Correct! Your Current Score is ${score}`;
+               
+            
             } else {
                 answerFeedback.textContent = `Incorrect! The correct answer is: ${correctAnswer}`;
             }
@@ -116,7 +118,7 @@ function checkAnswer(formContainer, correctAnswer, answerFeedback) {
                     formContainer.innerHTML = "";
                     answerFeedback.innerHTML = "";
                     answerFeedback.innerHTML="Thanks for participating in the Quiz!!"
-                    alert(`Quiz ended! Your score is ${score}`);
+                    alert(`Quiz ended! Your Final score is ${score}`);
                     const restartButton=document.createElement("button");
                     restartButton.textContent="Restart Quiz";
                     restartButton.style.backgroundColor="orange";
